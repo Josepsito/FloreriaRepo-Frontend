@@ -1,0 +1,137 @@
+<div class="bg-gray-100 min-h-screen text-gray-800 p-4">
+
+  <!-- Header -->
+  <header class="bg-white shadow p-4 flex justify-between items-center sticky top-0 z-50 mb-8">
+    <h1 class="text-2xl font-bold flex items-center gap-2">
+      <span class="material-symbols-outlined text-green-600 text-3xl">potted_plant</span>
+      Administrador - Jardín Secreto
+    </h1>
+
+    <div class="flex items-center gap-4 text-gray-600">
+      <a [routerLink]="['/admin-agregar']" class="p-2 hover:bg-gray-200 rounded-full">
+        <span class="material-symbols-outlined text-2xl text-green-600">add_circle</span>
+      </a>
+      <a [routerLink]="['/admin-productos']" class="p-2 hover:bg-gray-200 rounded-full">
+        <span class="material-symbols-outlined text-2xl text-green-600">inventory_2</span>
+      </a>
+      <a [routerLink]="['/admin-pedidos']" class="p-2 hover:bg-gray-200 rounded-full">
+        <span class="material-symbols-outlined text-2xl text-green-600">receipt_long</span>
+      </a>
+
+      <button (click)="cerrarSesion()"
+              class="p-2 hover:bg-gray-200 rounded-full text-red-600">
+        <span class="material-symbols-outlined text-2xl">logout</span>
+      </button>
+    </div>
+  </header>
+
+
+  <main class="container mx-auto flex flex-col gap-10">
+
+    <div class="flex flex-col lg:flex-row gap-10">
+      <!-- Formulario -->
+      <div class="flex-1 bg-white p-8 rounded-xl shadow-lg">
+        <h2 class="text-2xl font-bold mb-6 text-center">Agregar nuevo producto</h2>
+        <form (ngSubmit)="onSubmit()" #formProducto="ngForm" class="space-y-4">
+
+          <div>
+            <label class="block mb-1 font-semibold" for="nombre">Nombre del producto</label>
+            <input type="text" id="nombre" placeholder="Ej: Ramo de Rosas"
+                   [(ngModel)]="producto.nombre" name="nombre" required
+                   class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+          </div>
+
+          <div>
+            <label class="block mb-1 font-semibold" for="descripcion">Descripción</label>
+            <textarea id="descripcion" placeholder="Descripción del producto" rows="3"
+                      [(ngModel)]="producto.descripcion" name="descripcion" required
+                      class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"></textarea>
+          </div>
+
+          <div class="grid grid-cols-3 gap-4">
+            <div>
+              <label class="block mb-1 font-semibold" for="precio">Precio (S/)</label>
+              <input type="number" id="precio" placeholder="Ej: 35" step="0.01" min="0"
+                     [(ngModel)]="producto.precio" name="precio" required
+                     class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+            </div>
+            <div>
+              <label class="block mb-1 font-semibold" for="stock">Stock</label>
+              <input type="number" id="stock" placeholder="Ej: 10" step="1" min="0"
+                     [(ngModel)]="producto.stock" name="stock" required
+                     class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+            </div>
+            <div>
+              <label class="block mb-1 font-semibold" for="categoria">Categoría</label>
+              <select id="categoria" [(ngModel)]="producto.categoria" name="categoria" required
+                      class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                <option [ngValue]="null" disabled selected>Selecciona una categoría</option>
+                <option *ngFor="let cat of categorias" [ngValue]="cat">{{ cat.nombre }}</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block mb-1 font-semibold" for="imagenURL">Link de imagen</label>
+            <input type="url" id="imagenURL" placeholder="https://ejemplo.com/imagen.jpg"
+                   [(ngModel)]="producto.imagenURL" name="imagenURL" required
+                   class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+          </div>
+
+          <button type="submit"
+                  class="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors">
+            Agregar Producto
+          </button>
+        </form>
+      </div>
+
+      <!-- Vista Previa -->
+      <div class="w-full lg:w-1/2 bg-white p-6 rounded-xl shadow-lg flex flex-col items-center">
+        <h3 class="text-xl font-bold mb-4 text-center">Vista previa del producto</h3>
+        <div class="flex flex-col items-center gap-4">
+          <img [src]="producto.imagenURL || defaultImg" alt="Imagen del producto"
+               class="w-40 h-40 object-cover rounded-lg shadow-md">
+          <p class="text-lg font-semibold">{{ producto.nombre || 'Nombre del producto' }}</p>
+          <p class="text-gray-600 text-center">{{ producto.descripcion || 'Descripción del producto' }}</p>
+          <p class="text-green-600 font-bold">S/ {{ producto.precio || 0 }}</p>
+          <p class="text-gray-500">Stock: {{ producto.stock || 0 }}</p>
+          <p class="text-gray-500">Colección: {{ producto.categoria?.nombre || '-' }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white p-8 rounded-xl shadow-lg w-full">
+      <h2 class="text-2xl font-bold mb-4 text-center">Agregar nueva categoría</h2>
+
+      <form (ngSubmit)="agregarCategoria()" #formCategoria="ngForm" class="space-y-4">
+        <div>
+          <label class="block mb-1 font-semibold" for="nombreCat">Nombre de la categoría</label>
+          <input type="text" id="nombreCat" [(ngModel)]="nuevaCategoria.nombre" name="nombreCat" required
+                 class="w-full border rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-green-500">
+        </div>
+
+        <div>
+          <label class="block mb-1 font-semibold" for="descripcionCat">Descripción</label>
+          <textarea id="descripcionCat" [(ngModel)]="nuevaCategoria.descripcion" name="descripcionCat" rows="2"
+                    class="w-full border rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-green-500"></textarea>
+        </div>
+
+        <label class="block mb-1 font-semibold" for="imagenPrincipal">Link del banner </label>
+        <input type="url" id="imagenPrincipal" [(ngModel)]="nuevaCategoria.imagenURL" name="imagenURL" required
+               placeholder="https://ejemplo.com/imagen.jpg"
+               class="w-full border rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-green-500">
+
+        <label class="block mb-1 font-semibold" for="imagenSecundaria">Link de la vista previa </label>
+        <input type="url" id="imagenSecundaria" [(ngModel)]="nuevaCategoria.imagenSecundariaURL"
+               name="imagenSecundariaURL" required
+               placeholder="https://ejemplo.com/imagen.jpg"
+               class="w-full border rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-green-500">
+
+        <button type="submit"
+                class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors">
+          Agregar Categoría
+        </button>
+      </form>
+    </div>
+  </main>
+</div>

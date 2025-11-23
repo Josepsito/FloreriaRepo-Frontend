@@ -1,0 +1,129 @@
+<app-header></app-header>
+<body class="bg-white text-gray-800">
+<!-- Hero del blog -->
+<section class="relative w-full h-64 md:h-96 bg-cover bg-center"
+         style="background-image: url('https://images.pexels.com/photos/32476126/pexels-photo-32476126.jpeg');">
+    <div class="absolute inset-0 bg-black/40 flex flex-col justify-center items-center text-white text-center px-4">
+      <h1 class="text-4xl md:text-5xl font-bold mb-2">Nuestro blog</h1>
+      <p class="text-lg md:text-xl">Consejos, cuidados y novedades del mundo floral</p>
+    </div>
+</section>
+
+<!-- Blog: Lista de Artículos -->
+<section class="py-16">
+  <div class="container mx-auto px-4">
+    <h2 class="text-3xl font-semibold text-center mb-12">Últimos Artículos</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+
+      @for (articulo of articulos(); track articulo.id) {
+      <!-- Tarjeta de Artículo -->
+      <div class="bg-white rounded-xl shadow-xl hover:shadow-2xl transition-shadow duration-300 overflow-hidden transform hover:-translate-y-1">
+        <img [src]="articulo.imagenUrl" [alt]="articulo.titulo"
+             class="w-full h-48 object-cover object-center">
+        <div class="p-6">
+          <h3 class="text-xl font-semibold mb-3 text-gray-900">{{ articulo.titulo }}</h3>
+          <p class="text-gray-600 mb-4 text-sm">{{ articulo.descripcionCorta }}</p>
+
+          <!-- Botón que abre el modal -->
+          <button (click)="abrirDetalle(articulo.id)"
+                  class="text-green-600 hover:text-green-800 font-bold focus:outline-none transition-colors">
+            Leer más
+          </button>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+</section>
+</body>
+<app-footer></app-footer>
+
+
+<!--
+  ============================================================================
+  *** MODAL/VISTA DE DETALLE DEL ARTÍCULO ***
+  ============================================================================
+-->
+@if (mostrarDetalle() && articuloSeleccionado(); as articulo) {
+<div class="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-0 md:p-8">
+
+  <!-- Botón de Cerrar (X) - Fijo en la esquina superior derecha -->
+  <button (click)="cerrarDetalle()"
+          class="absolute top-4 right-4 text-white text-4xl hover:text-green-400 transition-colors z-[51] focus:outline-none">
+    &times;
+  </button>
+
+  <!-- Contenedor Principal (El post) -->
+  <div class="flex flex-col md:flex-row w-full max-w-7xl h-full md:max-h-[70vh] bg-white rounded-none md:rounded-xl shadow-2xl overflow-hidden">
+
+    <!-- Flecha IZQUIERDA (Desktop) -->
+    <button (click)="navegar('anterior')" [disabled]="!puedeNavegarAnterior()"
+            class="hidden lg:flex absolute left-4 inset-y-0 w-12 items-center justify-center text-white disabled:opacity-30 hover:bg-black/20 transition-all z-10">
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+    </button>
+
+    <!-- Columna Izquierda: Contenido Principal (Imagen y Título en móvil) -->
+    <div class="w-full md:w-2/3 flex flex-col bg-gray-100 overflow-y-auto">
+      <div class="flex-shrink-0 h-64 md:h-2/3 bg-gray-200">
+        <!-- Imagen del artículo -->
+        <img [src]="articulo.imagenUrl" [alt]="articulo.titulo" class="w-full h-full object-cover object-center">
+      </div>
+
+      <!-- Contenido detallado en el lado de la imagen (similar a la imagen del usuario) -->
+      <div class="p-6 md:p-8 flex-1">
+        <h3 class="text-2xl font-bold text-gray-900 mb-4 md:hidden">{{ articulo.titulo }}</h3>
+        <p class="text-gray-700 whitespace-pre-wrap leading-relaxed">{{ articulo.contenidoCompleto }}</p>
+      </div>
+    </div>
+
+    <!-- Columna Derecha: Metadatos y Comentarios (Barra lateral) -->
+    <div class="w-full md:w-1/3 flex flex-col border-t md:border-t-0 md:border-l border-gray-200 flex-shrink-0">
+
+      <!-- Encabezado/Título (Visible en desktop) -->
+      <div class="p-4 border-b border-gray-200 hidden md:block">
+        <h2 class="text-2xl font-bold text-green-700">{{ articulo.titulo }}</h2>
+        <p class="text-1xl text-black-200">{{ articulo.descripcionCorta }}</p> <br>
+        <p class="text-xs text-gray-500 mt-1">Artículo #{{ articulo.id }} | Jardín Secreto</p>
+      </div>
+
+      <!-- Área de Comentarios (Fija o desplazable) -->
+      <div class="flex-1 p-4 overflow-y-auto">
+        <h4 class="font-semibold mb-3 text-gray-800 border-b pb-2">Comentarios</h4>
+        <div class="text-sm space-y-4">
+          <p class="flex">
+            <span class="font-bold text-green-600 mr-2">FloraLover:</span>
+            ¡Me encanta el consejo del corte diagonal! Mis rosas han durado el doble.
+          </p>
+          <p class="flex">
+            <span class="font-bold text-green-600 mr-2">UsuarioNuevo:</span>
+            ¿El corte diagonal se hace bajo el agua? <span class="text-xs text-gray-400 ml-1"></span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Pie de página: Interacción o Navegación Móvil -->
+      <div class="p-4 border-t border-gray-200">
+        <!-- Simulación de botón de 'Me gusta' -->
+        <button class="flex items-center text-gray-500 hover:text-red-500 transition-colors">
+          <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+          <span class="font-medium">1 Me gusta</span>
+        </button>
+
+        <!-- Navegación Móvil (al final del contenido) -->
+        <div class="md:hidden mt-4 flex justify-between">
+          <button (click)="navegar('anterior')" [disabled]="!puedeNavegarAnterior()"
+                  class="px-4 py-2 bg-gray-100 rounded-lg text-gray-800 font-semibold disabled:opacity-30">← Anterior</button>
+          <button (click)="navegar('siguiente')" [disabled]="!puedeNavegarSiguiente()"
+                  class="px-4 py-2 bg-green-100 rounded-lg text-green-800 font-semibold disabled:opacity-30">Siguiente →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Flecha DERECHA (Desktop) -->
+  <button (click)="navegar('siguiente')" [disabled]="!puedeNavegarSiguiente()"
+          class="hidden lg:flex absolute right-4 inset-y-0 w-12 items-center justify-center text-white disabled:opacity-30 hover:bg-black/20 transition-all z-10">
+    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+  </button>
+</div>
+}

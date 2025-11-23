@@ -1,0 +1,131 @@
+<app-header></app-header>
+<body class="bg-white text-gray-800">
+
+<!-- Hero de eventos -->
+<section class="relative w-full h-64 md:h-96 bg-cover bg-center"
+         style="background-image: url('https://images.pexels.com/photos/28998231/pexels-photo-28998231.jpeg');">
+  <div class="absolute inset-0 bg-black/50 flex flex-col justify-center items-center text-white text-center px-6">
+    <h1 class="text-5xl font-bold mb-4">Eventos con flores</h1>
+    <p class="text-lg max-w-2xl">Transforma cualquier ocasión en un recuerdo inolvidable con nuestros arreglos
+      florales personalizados para cada tipo de evento.</p>
+  </div>
+</section>
+
+<!-- Tipos de eventos -->
+<section class="container mx-auto py-16 px-6" id="eventos">
+  <h2 class="text-3xl font-bold text-center mb-12">Creamos magia para tus momentos</h2>
+  <div class="space-y-20">
+
+    <!-- Bodas -->
+    <div class="flex flex-col md:flex-row items-center gap-8">
+      <img src="https://images.pexels.com/photos/265947/pexels-photo-265947.jpeg"
+           class="rounded-xl shadow-lg w-full md:w-1/2 object-cover">
+      <div class="md:w-1/2">
+        <h3 class="text-2xl font-bold mb-3">Bodas</h3>
+        <ul class="list-disc pl-5 mb-4 text-gray-700 space-y-1">
+          <li>Ramo de novia y boutonnière</li>
+          <li>Decoración de iglesia y altar</li>
+          <li>Centros de mesa personalizados</li>
+          <li>Decoración del salón de recepción</li>
+        </ul>
+        <a (click)="scrollTo('cotizar')"
+           class="inline-block px-6 py-2 bg-green-600 text-white rounded-full hover:bg-green-700 transition">Cotizar</a>
+      </div>
+    </div>
+
+    <!-- Cumpleaños -->
+    <div class="flex flex-col md:flex-row-reverse items-center gap-8">
+      <img src="https://images.pexels.com/photos/265947/pexels-photo-265947.jpeg"
+           class="rounded-xl shadow-lg w-full md:w-1/2 object-cover">
+      <div class="md:w-1/2">
+        <h3 class="text-2xl font-bold mb-3">Cumpleaños</h3>
+        <ul class="list-disc pl-5 mb-4 text-gray-700 space-y-1">
+          <li>Decoración floral temática</li>
+          <li>Arreglos de mesa</li>
+          <li>Arco de bienvenida con flores</li>
+          <li>Detalles florales para invitados</li>
+        </ul>
+        <a (click)="scrollTo('cotizar')"
+           class="inline-block px-6 py-2 bg-green-600 text-white rounded-full hover:bg-green-700 transition">Cotizar</a>
+      </div>
+    </div>
+
+    <!-- Eventos Corporativos -->
+    <div class="flex flex-col md:flex-row items-center gap-8">
+      <img src="https://images.pexels.com/photos/265947/pexels-photo-265947.jpeg"
+           class="rounded-xl shadow-lg w-full md:w-1/2 object-cover">
+      <div class="md:w-1/2">
+        <h3 class="text-2xl font-bold mb-3">Eventos Corporativos</h3>
+        <ul class="list-disc pl-5 mb-4 text-gray-700 space-y-1">
+          <li>Decoración de escenario y podio</li>
+          <li>Centros de mesa elegantes</li>
+          <li>Arreglos para recepción y pasillos</li>
+          <li>Estilo corporativo personalizado</li>
+        </ul>
+        <a (click)="scrollTo('cotizar')"
+           class="inline-block px-6 py-2 bg-green-600 text-white rounded-full hover:bg-green-700 transition">Cotizar</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Cotizar -->
+<section class="container mx-auto py-20 px-6" id="cotizar">
+  <h2 class="text-3xl font-bold text-center mb-8">Personaliza tu evento</h2>
+  <form class="max-w-2xl mx-auto bg-gradient-to-br from-green-50 to-white p-8 rounded-2xl shadow-xl space-y-6">
+
+    <!-- Tipo de flores -->
+    <div>
+      <label class="block mb-2 font-semibold">Tipo de flores</label>
+      <select [(ngModel)]="flor" name="flor" class="w-full p-3 rounded-lg border border-gray-300">
+        <option [ngValue]="5">Rosas (S/5 c/u)</option>
+        <option [ngValue]="8">Tulipanes (S/8 c/u)</option>
+        <option [ngValue]="6">Girasoles (S/6 c/u)</option>
+      </select>
+    </div>
+
+    <!-- Cantidad -->
+    <div>
+      <label class="block mb-2 font-semibold">Cantidad de flores</label>
+      <input type="number" [(ngModel)]="cantidad" name="cantidad" min="1"
+             class="w-full p-3 rounded-lg border border-gray-300">
+    </div>
+
+    <!-- Extras -->
+    <div>
+      <label class="block mb-2 font-semibold">Extras</label>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <label class="flex items-center gap-2 p-3 bg-white rounded-lg border shadow-sm">
+          <input type="checkbox" (change)="actualizarExtras($event,20)"> Arreglo de mesa (+S/20)
+        </label>
+        <label class="flex items-center gap-2 p-3 bg-white rounded-lg border shadow-sm">
+          <input type="checkbox" (change)="actualizarExtras($event,50)"> Decoración completa de salón (+S/50)
+        </label>
+        <label class="flex items-center gap-2 p-3 bg-white rounded-lg border shadow-sm">
+          <input type="checkbox" (change)="actualizarExtras($event,15)"> Ramo adicional (+S/15)
+        </label>
+        <label class="flex items-center gap-2 p-3 bg-white rounded-lg border shadow-sm">
+          <input type="checkbox" (change)="actualizarExtras($event,40)"> Entrega express (+S/40)
+        </label>
+      </div>
+    </div>
+
+    <!-- Precio -->
+    <div class="bg-green-100 p-6 rounded-lg shadow text-center">
+      <p class="text-lg font-semibold">Precio estimado:</p>
+      <p class="text-3xl font-bold text-green-700">S/ {{ precio.toFixed(2) }}</p>
+    </div>
+
+    <div class="flex justify-center gap-4">
+      <button type="button" id="btn-cotizar" (click)="calcularPrecio()"
+              class="px-8 py-3 bg-green-600 text-white rounded-full hover:bg-green-700 transition">
+        Cotizar
+      </button>
+      <button class="px-8 py-3 bg-black text-white rounded-full hover:bg-gray-800 transition">
+        Contratar
+      </button>
+    </div>
+  </form>
+</section>
+<app-footer></app-footer>
+</body>

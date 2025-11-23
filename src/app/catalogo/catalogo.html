@@ -1,0 +1,35 @@
+<app-header></app-header>
+
+<section class="relative w-full h-64 md:h-96 bg-cover bg-center"
+         style="background-image: url('https://images.pexels.com/photos/34283139/pexels-photo-34283139.jpeg');">
+  <div class="absolute inset-0 bg-black/40 flex flex-col justify-center items-center text-white text-center">
+    <h1 class="text-5xl font-bold mb-4">Catálogo</h1>
+    <p class="text-lg">Descubre nuestra variedad de flores y arreglos para cada ocasión</p>
+  </div>
+</section>
+
+<main class="container mx-auto py-12 px-4">
+  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
+    <div *ngFor="let cat of categorias"
+         class="relative group overflow-hidden rounded-xl shadow hover:shadow-lg transition duration-300">
+      <a [routerLink]="['/coleccion', cat.nombre]" class="block">
+        <img [src]="cat.imagenSecundariaURL" [alt]="cat.nombre"
+             class="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300">
+        <span
+          class="absolute bottom-2 left-1/2 transform -translate-x-1/2 bg-white text-black px-2 py-1 text-sm font-semibold">
+          {{ cat.nombre.toUpperCase() }}
+        </span>
+      </a>
+    </div>
+  </div>
+
+  <div class="flex justify-center mt-8 space-x-2">
+    <a href="#" class="px-3 py-1 border border-gray-300 rounded hover:bg-gray-200 transition">Anterior</a>
+    <a href="#" class="px-3 py-1 border border-gray-300 rounded bg-gray-200 font-semibold">1</a>
+    <a href="#" class="px-3 py-1 border border-gray-300 rounded hover:bg-gray-200 transition">2</a>
+    <a href="#" class="px-3 py-1 border border-gray-300 rounded hover:bg-gray-200 transition">3</a>
+    <a href="#" class="px-3 py-1 border border-gray-300 rounded hover:bg-gray-200 transition">Siguiente</a>
+  </div>
+</main>
+
+<app-footer></app-footer>

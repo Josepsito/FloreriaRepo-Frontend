@@ -1,0 +1,123 @@
+<app-header></app-header>
+
+<section class="relative w-full h-[500px] overflow-hidden">
+  <div id="carousel" class="absolute inset-0 w-full h-full">
+    <img src="https://images.pexels.com/photos/30190562/pexels-photo-30190562.jpeg" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-100">
+    <img src="https://images.pexels.com/photos/33104577/pexels-photo-33104577.jpeg" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0">
+    <img src="https://images.pexels.com/photos/17001743/pexels-photo-17001743.jpeg" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0">
+  </div>
+
+  <div class="absolute inset-0 bg-black/40 flex flex-col justify-center items-center text-white text-center">
+    <h1 class="text-5xl font-bold mb-4">Flores frescas y únicas</h1>
+    <p class="mb-6 text-lg">Haz tu pedido hoy y recíbelo en pocas horas</p>
+    <a href="#categorias" class="btn btn-success px-6 py-2">Comprar ahora</a>
+  </div>
+</section>
+
+<section id="categorias" class="py-12 container mx-auto">
+  <h2 class="text-3xl font-bold text-center mb-8">Categorías</h2>
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+    <a [routerLink]="['/coleccion', 'CUMPLEAÑOS']" class="text-center block cursor-pointer">
+      <img src="https://i.postimg.cc/MKXQkcwR/floreros.png" class="rounded-xl shadow">
+      <p class="mt-2 font-semibold">CUMPLEAÑOS</p>
+    </a>
+
+    <a [routerLink]="['/coleccion', 'ANIVERSARIO']" class="text-center block cursor-pointer">
+      <img src="https://i.postimg.cc/vHLHNbgP/cajas.png" class="rounded-xl shadow">
+      <p class="mt-2 font-semibold">ANIVERSARIO</p>
+    </a>
+
+    <a [routerLink]="['/coleccion', 'SAN VALENTÍN']" class="text-center block cursor-pointer">
+      <img src="https://i.postimg.cc/mrTZsqMF/ramos.png" class="rounded-xl shadow">
+      <p class="mt-2 font-semibold">SAN VALENTÍN</p>
+    </a>
+
+    <a [routerLink]="['/coleccion', 'FUNERALES']" class="text-center block cursor-pointer">
+      <img src="https://www.misflorescali.com/flores/wp-content/uploads/2020/12/descarga-48.jpg" class="rounded-xl shadow">
+      <p class="mt-2 font-semibold">FUNERALES</p>
+    </a>
+  </div>
+</section>
+
+<section class="bg-gray-100 py-12">
+  <div class="container mx-auto">
+    <h2 class="text-3xl font-bold text-center mb-8">Favoritos</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-white rounded-xl shadow p-4">
+        <img src="https://i.postimg.cc/SKWhJGL0/ramo-rosas.png"
+             class="rounded-lg">
+        <h3 class="mt-4 font-semibold">Ramo Rosas</h3>
+        <p class="text-green-600 font-bold">S/ 35.00</p>
+      </div>
+      <div class="bg-white rounded-xl shadow p-4">
+        <img src="https://i.postimg.cc/8zb8GCNd/cajatulipanes.png"
+             class="rounded-lg">
+        <h3 class="mt-4 font-semibold">Caja Tulipanes</h3>
+        <p class="text-green-600 font-bold">S/ 45.00</p>
+      </div>
+      <div class="bg-white rounded-xl shadow p-4">
+        <img src="https://i.postimg.cc/pXYch14f/orquideas.png"
+             class="rounded-lg">
+        <h3 class="mt-4 font-semibold">Orquídeas</h3>
+        <p class="text-green-600 font-bold">S/ 55.00</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-12 container mx-auto">
+  <h2 class="text-3xl font-bold text-center mb-8">Visítanos</h2>
+  <div class="flex flex-col md:flex-row gap-6 items-center">
+    <img src="https://images.pexels.com/photos/32476126/pexels-photo-32476126.jpeg"
+         class="rounded-xl shadow w-full md:w-1/2">
+    <div class="md:w-1/2">
+      <h3 class="font-semibold mb-2">Nuestra tienda</h3>
+      <p>Ven a conocernos y disfruta de la experiencia única del Jardín secreto. Estamos en Av. Nicolás de
+        Piérola 123, Lima -
+        Perú.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="bg-gray-100 py-12">
+  <div class="container mx-auto">
+    <h2 class="text-3xl font-bold text-center mb-8">Últimos Posts</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-white rounded-xl shadow p-4">
+        <img src="https://i.postimg.cc/MZrVs0Rk/cuidar.png"
+             class="rounded-lg">
+        <h3 class="mt-4 font-semibold">Cómo cuidar tus flores</h3>
+      </div>
+      <div class="bg-white rounded-xl shadow p-4">
+        <img src="https://i.postimg.cc/XvzB24Gn/tendencias.png"
+             class="rounded-lg">
+        <h3 class="mt-4 font-semibold">Tendencias en arreglos</h3>
+      </div>
+      <div class="bg-white rounded-xl shadow p-4">
+        <img src="https://i.postimg.cc/qq0Jw5LG/ocasi-n.png"
+             class="rounded-lg">
+        <h3 class="mt-4 font-semibold">Flores para cada ocasión</h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-12 container mx-auto">
+  <h2 class="text-3xl font-bold text-center mb-8">Opiniones</h2>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="bg-gray-100 p-6 rounded-xl shadow">
+      <p>“Las flores más frescas y hermosas que he recibido. El servicio es excelente.”</p>
+      <span class="block mt-2 font-semibold">- María P.</span>
+    </div>
+    <div class="bg-gray-100 p-6 rounded-xl shadow">
+      <p>“Me encanta la variedad y la calidad. Siempre cumplen con los envíos.”</p>
+      <span class="block mt-2 font-semibold">- José R.</span>
+    </div>
+    <div class="bg-gray-100 p-6 rounded-xl shadow">
+      <p>“Definitivamente mi florería favorita en Lima.”</p>
+      <span class="block mt-2 font-semibold">- Andrea L.</span>
+    </div>
+  </div>
+</section>
+<app-footer></app-footer>
