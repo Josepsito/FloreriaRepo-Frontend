@@ -2,6 +2,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 // Interfaz para tipar el producto
 export interface Producto {
@@ -20,8 +21,7 @@ export interface Producto {
 })
 export class ProductoService {
 
-  private apiUrl = 'http://localhost:8080/api/productos';
-
+  private apiUrl = `${environment.apiUrl}/api/productos`;
   constructor(private http: HttpClient) { }
 
   obtenerProductos(): Observable<Producto[]> {
