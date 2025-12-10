@@ -33,9 +33,17 @@
       </div>
 
       <!-- Carrito -->
-      <a href="#" class="text-gray-600 hover:text-green-600 text-2xl">
-        <i class="bi bi-cart"></i>
-      </a>
+      <div class="relative cursor-pointer">
+        <a (click)="abrirCarrito()" class="text-gray-600 hover:text-green-600 text-2xl">
+          <i class="bi bi-cart"></i>
+        </a>
+
+        <!-- Número del carrito -->
+        <span *ngIf="carritoCantidad > 0"
+              class="absolute -top-2 -right-2 bg-green-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+          {{ carritoCantidad }}
+        </span>
+      </div>
 
       <!-- Usuario / Sesión -->
       <div class="flex items-center gap-2">

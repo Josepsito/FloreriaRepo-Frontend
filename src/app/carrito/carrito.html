@@ -1,0 +1,53 @@
+<app-header></app-header>
+
+<div class="container mx-auto py-10">
+
+  <h1 class="text-3xl font-bold mb-6">Tu Carrito</h1>
+
+  <div *ngIf="items.length === 0" class="text-gray-600 text-lg">
+    Tu carrito está vacío.
+  </div>
+
+  <div *ngFor="let item of items" class="flex items-center justify-between border-b py-4">
+
+    <div class="flex items-center gap-4">
+      <img [src]="item.producto.imagenURL" class="w-20 h-20 object-cover rounded-lg">
+
+      <div>
+        <h2 class="text-xl font-semibold">{{ item.producto.nombre }}</h2>
+        <p class="text-gray-500">S/ {{ item.producto.precio }}</p>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <button (click)="disminuir(item)" class="px-3 py-1 bg-gray-200 rounded">-</button>
+
+      <span class="font-semibold">{{ item.cantidad }}</span>
+
+      <button (click)="aumentar(item)" class="px-3 py-1 bg-gray-200 rounded">+</button>
+    </div>
+
+    <div class="font-bold text-lg">
+      S/ {{ item.producto.precio * item.cantidad }}
+    </div>
+
+    <button (click)="eliminar(item)" class="text-red-600 font-semibold">
+      Eliminar
+    </button>
+
+  </div>
+
+  <div *ngIf="items.length > 0" class="mt-8 text-right">
+    <h2 class="text-2xl font-bold mb-4">Total: S/ {{ total }}</h2>
+
+    <button (click)="vaciar()"
+            class="bg-red-600 text-white px-6 py-2 rounded-lg mr-4 hover:bg-red-700">
+      Vaciar carrito
+    </button>
+
+    <button (click)="comprarTodo()"
+            class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700">
+      Comprar ahora
+    </button>
+  </div>
+</div>

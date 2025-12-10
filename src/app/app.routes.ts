@@ -9,6 +9,7 @@ import { AdminAgregar } from './admin-agregar/admin-agregar';
 import { ColeccionComponent } from './colecciones/coleccion/coleccion';
 import { AuthGuardGuard } from './service/auth-guard-guard';
 import { AdminProductos } from './admin-productos/admin-productos';
+import { Carrito } from './carrito/carrito';
 
 export const routes: Routes = [
   { path: '', component: Home },
@@ -19,6 +20,7 @@ export const routes: Routes = [
   { path: 'eventos', component: Eventos },
   { path: 'admin-agregar', component: AdminAgregar, canActivate: [AuthGuardGuard] },
   { path: 'admin-productos', component: AdminProductos, canActivate: [AuthGuardGuard] },
+  { path: 'carrito', component: Carrito },
   { path: 'coleccion/:nombre', component: ColeccionComponent },
   { path: '**', redirectTo: '' }
 ];

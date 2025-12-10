@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { CarritoService } from './carrito-service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { environment } from '../../environments/environment';
 export class UsuarioService {
   private apiUrl = `${environment.apiUrl}`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private carritoService: CarritoService) {}
 
   // LOGIN
   login(credenciales: { email: string; password: string }): Observable<any> {
@@ -50,6 +51,7 @@ export class UsuarioService {
       .pipe(
         tap(() => {
           localStorage.removeItem('usuario');
+          this.carritoService.limpiarCarrito();
         })
       );
   }

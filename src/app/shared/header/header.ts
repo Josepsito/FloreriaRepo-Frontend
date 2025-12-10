@@ -3,6 +3,9 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UsuarioService } from '../../service/usuario';
+import { CarritoService } from '../../service/carrito-service';
+
+
 
 @Component({
   selector: 'app-header',
@@ -26,14 +29,19 @@ export class Header {
   passwordReg: string = '';
   telefonoReg: string = '';
   errorRegistro: string = '';
+  carritoCantidad: number = 0;
 
   // Usuario logueado
   usuario: { nombre: string; email: string; rol: string } | null = null;
 
-  constructor(private usuarioService: UsuarioService) {}
+  constructor(private usuarioService: UsuarioService,private carritoService: CarritoService) {}
 
   ngOnInit() {
     this.usuario = this.usuarioService.getUsuario();
+
+    this.carritoService.carrito$.subscribe(items => {
+      this.carritoCantidad = items.reduce((acc, item) => acc + item.cantidad, 0);
+    });
   }
 
   abrirLogin() {
@@ -72,6 +80,16 @@ export class Header {
       }
     );
   }
+
+  abrirCarrito() {
+  if (this.usuario) {
+    // usuario logueado → ir al carrito
+    window.location.href = '/carrito';
+  } else {
+    // usuario NO logueado → abrir modal de login
+    this.abrirLogin();
+  }
+}
 
   // REGISTRO
   onRegister() {
